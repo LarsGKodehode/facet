@@ -1,7 +1,9 @@
 {
   description = "Entrypoint for my systems";
 
+  # This is a list of all the external dependencies of this setup
   inputs = {
+    # The main packages repository for prepacked packages
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
@@ -13,26 +15,20 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-wsl,
-    ...
-  }:
-
-  {
-    nixosConfigurations = {
-      weasel = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-	modules = [
-	  nixos-wsl.nixosModules.default
-	  {
-	    system.stateVersion = "24.05";
-	    wsl.enable = true;
-	    wsl.defaultUser = "zab";
-	  }
-	];
+  outputs = { nixpkgs, ... }@inputs:
+    let
+      # Global configurations for these systems
+      globals = rec {
+        user = "zab";
+        fullName = "zabronax";
+        gitName = fullName;
+        gitEmail = "104063134+LarsGKodehode@users.noreply.github.com";
+      };
+    in
+    rec {
+      # These are the specific host systems that are defined
+      nixosConfigurations = {
+        weasel = import ./hosts/weasel { inherit inputs globals; };
       };
     };
-  };
 }
