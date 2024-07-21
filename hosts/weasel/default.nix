@@ -10,6 +10,8 @@ let
   globals = {
     stateVersion = "24.05";
     user = "zab";
+    gitName = "zabronax";
+    gitEmail = "104063134+LarsGKodehode@users.noreply.github.com";
   };
 in
 inputs.nixpkgs.lib.nixosSystem {
