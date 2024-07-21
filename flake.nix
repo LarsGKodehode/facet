@@ -21,10 +21,30 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: {
+  outputs = { nixpkgs, ... }@inputs:
+  let
+    # Helper function for generating an attribute set
+    allSupportedSystems = [ "x86_64-linux" ];
+    forAllSystems = nixpkgs.lib.genAttrs allSupportedSystems; 
+  in
+  {
     # These are the specific host systems that are defined
     nixosConfigurations = {
       weasel = import ./hosts/weasel { inherit inputs; };
     };
+
+    devShells = forAllSystems (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        default = pkgs.mkShell {
+          buildInputs = [
+            pkgs.git
+          ];
+        };
+      }
+    ); 
   };
 }
