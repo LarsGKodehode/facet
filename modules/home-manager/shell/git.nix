@@ -27,8 +27,10 @@
         userName = config.gitName;
         userEmail = config.gitEmail;
 
-        init.defaultBranch = "main";
-        push.autoSetupRemote = true;
+        extraConfig = {
+          init.defaultBranch = "main";
+          push.autoSetupRemote = true;
+        };
       };
 
       # Shell integration
