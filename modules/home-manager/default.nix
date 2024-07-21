@@ -11,6 +11,10 @@
 }:
 
 {
+  imports = [
+    ./shell
+  ];
+
   # Configurations for this module
   options = {
     custom-home-manager = {
@@ -39,21 +43,7 @@
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      users.${config.user} = {pkgs, ...}: {
-        home.stateVersion = config.stateVersion;
-
-        programs = {
-          # Prompt configurations
-          starship = {
-            # Documentation https://starship.rs/config/
-            enable = true;
-            settings.format = lib.concatStrings [
-              "$directory"
-              "$git_branch"
-            ];
-          };
-        };
-      };
+      users.${config.user}.home.stateVersion = config.stateVersion;
     };
   };
 }

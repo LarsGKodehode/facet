@@ -1,8 +1,6 @@
 # Configurations shared by all systems
 
 {
-  config,
-  lib,
   pkgs,
   ...
 }:
