@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./fish
     ./starship.nix
   ];
 }
