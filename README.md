@@ -29,3 +29,9 @@ Some of the current goals:
 
   With a solid decomposition of system configurations, which inspired my own structure. 
 
+- [Vimjoyer](https://github.com/vimjoyer)
+
+  For providing a large set of bite sized examples along with a
+  [Youtube Channel](https://www.youtube.com/@vimjoyer) with short instructional videos.
+
+
