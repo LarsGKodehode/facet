@@ -44,6 +44,7 @@
       useUserPackages = true;
 
       users.${config.user}.home.stateVersion = config.stateVersion;
+      users.root.home.stateVersion = config.stateVersion;
     };
   };
 }
