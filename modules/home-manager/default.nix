@@ -13,6 +13,7 @@
 {
   imports = [
     ./shell
+    ./editors
   ];
 
   # Configurations for this module

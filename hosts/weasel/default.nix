@@ -6,6 +6,7 @@
 }:
 
 let
+  system = "x86_64-linux";
   hostName = "weasel";
   globals = rec {
     stateVersion = "24.05";
@@ -17,8 +18,7 @@ let
   };
 in
 inputs.nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
-
+  system = system;
   modules = [
     globals
     ../../modules/common
@@ -26,6 +26,9 @@ inputs.nixpkgs.lib.nixosSystem {
     # TODO Figure out how to coalesce the home-manager configurations
     ../../modules/home-manager
     inputs.home-manager.nixosModules.home-manager
+
+    # TODO find a way to move this to it's own module 
+    inputs.vscode-server.nixosModules.default
 
     # Host specific configurations
     ../../modules/wsl
@@ -39,6 +42,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
       # Program and service modules
       custom-home-manager.enable = true;
+      editors.vscode-server.enable = true;
 
       # WSL specific configurations
       wsl = {
