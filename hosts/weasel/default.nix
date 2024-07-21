@@ -35,7 +35,7 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.nixos-wsl.nixosModules.wsl
     ({ config, inputs, pkgs, ... }: {
       # NixOS Configurations
-      system.stateVersion = "24.05"; # Initial version of NixOS for this system
+      system.stateVersion = config.stateVersion; # Initial version of NixOS for this system
       nix.settings.experimental-features = "nix-command flakes"; # Enables flakes for this system
 
       networking.hostName = hostName; 
