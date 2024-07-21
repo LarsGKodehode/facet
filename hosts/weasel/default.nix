@@ -7,11 +7,13 @@
 
 let
   hostName = "weasel";
-  globals = {
+  globals = rec {
     stateVersion = "24.05";
     user = "zab";
     gitName = "zabronax";
     gitEmail = "104063134+LarsGKodehode@users.noreply.github.com";
+
+    nixConfigurationsPath = builtins.toPath ("/home/${user}" + "/.systems");
   };
 in
 inputs.nixpkgs.lib.nixosSystem {
@@ -26,6 +28,7 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager
 
     # Host specific configurations
+    ../../modules/wsl
     inputs.nixos-wsl.nixosModules.wsl
     ({ config, inputs, pkgs, ... }: {
       # NixOS Configurations
