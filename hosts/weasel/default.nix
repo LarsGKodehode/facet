@@ -3,38 +3,49 @@
 
 {
   inputs,
-  globals,
-  # Disabling unlisted dependencies to better understand when it breaks 
-  #...
 }:
 
 let
   hostName = "weasel";
+  globals = {
+    stateVersion = "24.05";
+    user = "zab";
+  };
 in
 inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
+
   modules = [
+    globals
+    ../../modules/common
+
+    # TODO Figure out how to coalesce the home-manager configurations
+    ../../modules/home-manager
+    inputs.home-manager.nixosModules.home-manager
+
+    # Host specific configurations
     inputs.nixos-wsl.nixosModules.wsl
-    {
-      # The initial version of NixOS installed
-      # used in as part of system migrations 
-      # TODO figure out where to best define this
-      system.stateVersion = "24.05";
+    ({ config, inputs, pkgs, ... }: {
+      # NixOS Configurations
+      system.stateVersion = "24.05"; # Initial version of NixOS for this system
+      nix.settings.experimental-features = "nix-command flakes"; # Enables flakes for this system
 
       networking.hostName = hostName; 
 
+      # Program and service modules
+      custom-home-manager.enable = true;
+
+      # WSL specific configurations
       wsl = {
         # Documentation
         # https://nix-community.github.io/NixOS-WSL/
         enable = true;
 
-	defaultUser = globals.user;
+	defaultUser = config.user;
 
         wslConf.network.generateResolvConf = true; # Turn off if it breaks VPN
 	interop.includePath = false; # Slows down some shell operations due to filesystem boundary
       };
-
-      nix.settings.experimental-features = "nix-command flakes";
-    }
+    })
   ];
 }
