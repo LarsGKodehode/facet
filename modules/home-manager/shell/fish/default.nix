@@ -16,7 +16,12 @@
       enable = true;
 
       shellAliases = {};
-      shellAbbrs = {};
+
+      shellAbbrs = {
+        # Vim
+        v = "vim";
+      };
+
       functions = {};
 
       shellInit = "";
