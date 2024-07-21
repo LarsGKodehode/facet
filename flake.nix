@@ -50,9 +50,11 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
+        # Contains dependencies for this repository
         default = pkgs.mkShell {
           buildInputs = [
             pkgs.git
+            pkgs.nil # Nix Language Server
           ];
         };
       }
