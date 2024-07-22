@@ -3,6 +3,7 @@
 # https://github.com/nix-community/nix-direnv
 {
   config,
+  home-manager,
   ...
 }:
 
