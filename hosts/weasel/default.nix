@@ -42,8 +42,9 @@ inputs.nixpkgs.lib.nixosSystem {
 
       # Capabilities (Programs, Services, etc) 
       custom-home-manager.enable = true;
-      editors.vscode-server.enable = true;
       system-administration.enable = true;
+      editors.vscode-server.enable = true;
+      editors.neovim.enable = true;
 
       # WSL specific configurations
       wsl = {
