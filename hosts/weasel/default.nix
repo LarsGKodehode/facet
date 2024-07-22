@@ -40,9 +40,10 @@ inputs.nixpkgs.lib.nixosSystem {
 
       networking.hostName = hostName; 
 
-      # Program and service modules
+      # Capabilities (Programs, Services, etc) 
       custom-home-manager.enable = true;
       editors.vscode-server.enable = true;
+      system-administration.enable = true;
 
       # WSL specific configurations
       wsl = {

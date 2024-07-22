@@ -6,9 +6,9 @@
 }:
 
 {
-  imports = [];
-
-  options = {};
+  imports = [
+    ./system-administration.nix
+  ];
 
   config = {
     # Always enabled packages
