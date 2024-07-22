@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  environment,
   ...
 }:
 
@@ -16,7 +17,7 @@
   };
 
   config = lib.mkIf (config.system-administration.enable) {
-    home-manager.users.${config.user}.home.packages = [
+    environment.systemPackages = [ 
       pkgs.htop # Display system processes
     ];
   };
