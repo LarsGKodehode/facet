@@ -37,11 +37,16 @@
       # Shell integration
       programs.fish.shellAbbrs = {
         gs = "git status";
+        gd = "git diff";
+        gdp = "git diff HEAD^";
         ga = "git add";
         gaa = "git add -A";
         gu = "git pull";
         gp = "git push";
         cdg = "cd (git rev-parse --show-toplevel)";
+        gc = "git commit --message";
+        gca = "git commit --amend --no-edit";
+        gcae = "git commit --amend";
       };
     };
   };
