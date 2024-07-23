@@ -38,13 +38,14 @@
       programs.fish.shellAbbrs = {
         gs = "git status";
         gd = "git diff";
+        gdh = "git diff HEAD";
         gdp = "git diff HEAD^";
         ga = "git add";
         gaa = "git add -A";
         gu = "git pull";
         gp = "git push";
         cdg = "cd (git rev-parse --show-toplevel)";
-        gc = "git commit --message";
+        gc = { expansion = "git commit --message \"%\""; setCursor = true; };
         gca = "git commit --amend --no-edit";
         gcae = "git commit --amend";
       };
