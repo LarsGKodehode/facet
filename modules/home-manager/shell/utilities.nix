@@ -14,5 +14,7 @@
     pkgs.gawk # awk String processor
     pkgs.ripgrep # grep replacement
     pkgs.sd # Sed
+
+    pkgs.nil # Nix language server
   ];
 }
