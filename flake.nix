@@ -59,5 +59,8 @@
         };
       }
     ); 
+
+    # An attribute set containing templates for new projects
+    templates = import ./templates;
   };
 }
