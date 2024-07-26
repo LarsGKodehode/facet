@@ -3,7 +3,7 @@
 
   # This is a list of all the external dependencies of this setup
   inputs = {
-    # The main packages repository for prepacked packages
+    # The main packages repository for packages definitions
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
@@ -44,13 +44,13 @@
       weasel = import ./hosts/weasel { inherit inputs; };
     };
 
+    # These are shells for use when workin in this repository
     devShells = forAllSystems (
       system:
       let
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        # Contains dependencies for this repository
         default = pkgs.mkShell {
           buildInputs = [
             pkgs.git
