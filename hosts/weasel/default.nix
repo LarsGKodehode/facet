@@ -55,7 +55,13 @@ inputs.nixpkgs.lib.nixosSystem {
 	defaultUser = config.user;
 
         wslConf.network.generateResolvConf = true; # Turn off if it breaks VPN
-	interop.includePath = false; # Slows down some shell operations due to filesystem boundary
+
+        # This appends windows PATH to the WSL PATH which might cause slowdowns in commands
+        # (likly due to them doing a recursive search of all entries in PATH)
+        # enabling it for now to allow usage of some Windows binaries inside WSL
+        # Required for:
+        # - 1Password CLI
+        interop.includePath = true;
       };
     })
   ];
