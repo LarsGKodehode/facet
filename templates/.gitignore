@@ -1,0 +1,8 @@
+# A "whitelist" of templates where the
+# dependencies only will be pinned at
+# first invocation
+#
+# Done by ignoring any lockfiles inside
+# the template directory
+
+nodejs/flake.lock
