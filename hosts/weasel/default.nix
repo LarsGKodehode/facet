@@ -81,7 +81,7 @@ inputs.nixpkgs.lib.nixosSystem {
         github = {
           description = "Authenticated GitHub CLI commands";
           body = ''
-            set --local --export GH_TOKEN '$(op read \"op://Personal/GitHub Zabronax/personal-access-token\")'
+            set --local --export GH_TOKEN $(op read "op://Personal/GitHub Zabronax/personal-access-token")
             command gh $argv
           '';
           wraps = "gh"; # Inherit suggestions from the GitHub CLI
