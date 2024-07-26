@@ -69,22 +69,33 @@ inputs.nixpkgs.lib.nixosSystem {
         interop.includePath = true;
       };
 
-      # 1Password "integrations"
-      # since 1Password does not currently support plugins in Windows
-      # https://github.com/1Password/shell-plugins/issues/402
-      #
-      # The simplest integration, for applications that supports environment secrets
-      # is to just to wrap them with this, mind it's likely to incure some performance
-      # penalties, along with requiring all calls to be authenticated, so limit this
-      # to those cases where this is likely to not make too much of a difference
-      home-manager.users.${config.user}.programs.fish.functions = {
-        github = {
-          description = "Authenticated GitHub CLI commands";
-          body = ''
-            set --local --export GH_TOKEN $(op read "op://Personal/GitHub Zabronax/personal-access-token")
-            command gh $argv
-          '';
-          wraps = "gh"; # Inherit suggestions from the GitHub CLI
+      home-manager.users.${config.user}.programs = {
+        # 1Password "integrations"
+        # since 1Password does not currently support plugins in Windows
+        # https://github.com/1Password/shell-plugins/issues/402
+        #
+        # The simplest integration, for applications that supports environment secrets
+        # is to just to wrap them with this, mind it's likely to incure some performance
+        # penalties, along with requiring all calls to be authenticated, so limit this
+        # to those cases where this is likely to not make too much of a difference
+        fish.functions = {
+          github = {
+            description = "Authenticated GitHub CLI commands";
+            body = ''
+              set --local --export GH_TOKEN $(op read "op://Personal/GitHub Zabronax/personal-access-token")
+              command gh $argv
+            '';
+            wraps = "gh"; # Inherit suggestions from the GitHub CLI
+          };
+        };
+
+        # Git WSL configuration
+        git = {
+          extraConfig.core = {
+            # Set git to use the Windows ssh agent following advice from 1Password
+            # https://developer.1password.com/docs/ssh/integrations/wsl/
+            sshCommand = "ssh.exe";
+          };
         };
       };
     })
