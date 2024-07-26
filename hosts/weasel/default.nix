@@ -56,12 +56,36 @@ inputs.nixpkgs.lib.nixosSystem {
 
         wslConf.network.generateResolvConf = true; # Turn off if it breaks VPN
 
+        # TODO Figure out how to turn this into an allow list, over a blanket include statement
+        # the problem lies in figuring out the exact paths of the binaries
+        # wsl.includeBin can do the rest
+        #
         # This appends windows PATH to the WSL PATH which might cause slowdowns in commands
         # (likly due to them doing a recursive search of all entries in PATH)
         # enabling it for now to allow usage of some Windows binaries inside WSL
+        #
         # Required for:
         # - 1Password CLI
         interop.includePath = true;
+      };
+
+      # 1Password "integrations"
+      # since 1Password does not currently support plugins in Windows
+      # https://github.com/1Password/shell-plugins/issues/402
+      #
+      # The simplest integration, for applications that supports environment secrets
+      # is to just to wrap them with this, mind it's likely to incure some performance
+      # penalties, along with requiring all calls to be authenticated, so limit this
+      # to those cases where this is likely to not make too much of a difference
+      home-manager.users.${config.user}.programs.fish.functions = {
+        github = {
+          description = "Authenticated GitHub CLI commands";
+          body = ''
+            set --local --export GH_TOKEN '$(op read \"op://Personal/GitHub Zabronax/personal-access-token\")'
+            command gh $argv
+          '';
+          wraps = "gh"; # Inherit suggestions from the GitHub CLI
+        };
       };
     })
   ];
