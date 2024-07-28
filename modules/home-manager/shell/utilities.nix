@@ -20,7 +20,7 @@
     ];
 
     programs.fish.shellAbbrs = {
-      t = "tree --dirsfirst -C";
+      t = "tree -C  --dirsfirst --gitignore";
     };
   };
 }
