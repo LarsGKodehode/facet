@@ -31,6 +31,12 @@
         extraConfig = {
           init.defaultBranch = "main";
           push.autoSetupRemote = true;
+
+          # Always ignore system and editor specific files and directories
+          ignores = [
+            ".direnv/**"
+            "result"
+          ];
         };
       };
 
