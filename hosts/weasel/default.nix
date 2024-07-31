@@ -52,7 +52,7 @@ inputs.nixpkgs.lib.nixosSystem {
         # https://nix-community.github.io/NixOS-WSL/
         enable = true;
 
-	defaultUser = config.user;
+        defaultUser = config.user;
 
         wslConf.network.generateResolvConf = true; # Turn off if it breaks VPN
 
