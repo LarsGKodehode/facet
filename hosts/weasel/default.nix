@@ -3,6 +3,7 @@
 
 {
   inputs,
+  overlays,
 }:
 
 let
@@ -38,6 +39,9 @@ inputs.nixpkgs.lib.nixosSystem {
       system.stateVersion = config.stateVersion; # Initial version of NixOS for this system
       nix.settings.experimental-features = "nix-command flakes"; # Enables flakes for this system
       networking.hostName = hostName;
+
+      # Overlays to apply
+      nixpkgs.overlays = overlays;
 
       theme = {
         colors = (import ../../modules/colorschemes/gruvbox).dark;
