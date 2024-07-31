@@ -73,13 +73,13 @@
 
       palette = "custom";
       palettes.custom = {
-        red = "#" + config.theme.colors.base08;
-        green = "#" + config.theme.colors.base0B;
-        purple = "#" + config.theme.colors.base0E;
-        aqua = "#" + config.theme.colors.base0C;
-        orange = "#" + config.theme.colors.base09;
-        yellow = "#" + config.theme.colors.base0A;
-        blue = "#" + config.theme.colors.base0D;
+        red = config.theme.colors.base08;
+        green = config.theme.colors.base0B;
+        purple = config.theme.colors.base0E;
+        aqua = config.theme.colors.base0C;
+        orange = config.theme.colors.base09;
+        yellow = config.theme.colors.base0A;
+        blue = config.theme.colors.base0D;
       };
     };
   };
