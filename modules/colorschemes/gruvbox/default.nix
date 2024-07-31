@@ -13,7 +13,8 @@
     base08 = "fb4934"; # red
     base09 = "fe8019"; # orange
     base0A = "fabd2f"; # yellow
-    base0B = "b8bb26"; # green
+    #base0B = "b8bb26"; # green
+    base0B = "95db2c"; # green -- make green more green
     base0C = "8ec07c"; # aqua/cyan
     base0D = "83a598"; # blue
     base0E = "d3869b"; # purple

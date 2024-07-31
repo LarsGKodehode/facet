@@ -29,34 +29,35 @@
       # Modules
       character = {
         format = "$symbol ";
-        success_symbol = "[λ](bold green)";
-        error_symbol = "[λ](bold red)";
+        success_symbol = "[λ](green)";
+        error_symbol = "[λ](red)";
       };
 
       hostname = {
-        format = "on [$hostname](bold red) ";
+        format = "on [$hostname](red) ";
       };
 
       directory = {
+        format = "[$path](blue) ";
         truncate_to_repo = true;
         truncation_length = 10;
       };
 
       kubernetes = {
-        format = " [󱃾 $context\($namespace\)](bold purple) ";
+        format = " [󱃾 $context\($namespace\)](purple) ";
         disabled = false;
       };
 
       nix_shell = {
         format = "[$state]($style) ";
-        impure_msg = "[❅](bold red)";
+        impure_msg = "[❅](red)";
       };
 
       git_branch = {
         format = "[$symbol$branch]($style)";
         symbol = "";
         truncation_symbol = ".../";
-        style = "bold green";
+        style = "orange";
       };
 
       git_status = {
@@ -67,7 +68,18 @@
         untracked = "?";
         modified = "!";
         staged = "+";
-        style = "bold red";
+        style = "yellow";
+      };
+
+      palette = "custom";
+      palettes.custom = {
+        red = "#" + config.theme.colors.base08;
+        green = "#" + config.theme.colors.base0B;
+        purple = "#" + config.theme.colors.base0E;
+        aqua = "#" + config.theme.colors.base0C;
+        orange = "#" + config.theme.colors.base09;
+        yellow = "#" + config.theme.colors.base0A;
+        blue = "#" + config.theme.colors.base0D;
       };
     };
   };

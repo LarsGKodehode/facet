@@ -35,6 +35,20 @@
       description = "The initial NixOS version of this system. DON'T change after initialization";
       type = lib.types.str;
     };
+
+    theme = {
+      colors = lib.mkOption {
+        description = "Base16 color scheme";
+        type = lib.types.attrs;
+        default = (import ../colorschemes/gruvbox).dark;
+      };
+
+      dark = lib.mkOption {
+        description = "Enable dark mode";
+        type = lib.types.bool;
+        default = true;
+      };
+    };
   };
 
   config = lib.mkIf (config.custom-home-manager.enable) { 
