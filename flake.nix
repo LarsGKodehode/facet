@@ -20,6 +20,30 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # MacOS Dependencies
+
+    # Manage macOS systems through Nix
+    darwin = {
+      url = "github:LnL7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+    };
+
+    # Optional: Declarative tap management
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
+    # Misc Programs
+
     # VS Code Server
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
@@ -35,13 +59,16 @@
   outputs = { nixpkgs, ... }@inputs:
   let
     # Helper function for generating an attribute set
-    allSupportedSystems = [ "x86_64-linux" ];
+    allSupportedSystems = [ "x86_64-linux" "aarch64-darwin" ];
     forAllSystems = nixpkgs.lib.genAttrs allSupportedSystems; 
   in
   {
     # These are the specific host systems that are defined
     nixosConfigurations = {
       weasel = import ./hosts/weasel { inherit inputs; };
+    };
+    darwinConfigurations = {
+      lupus = import ./hosts/lupus { inherit inputs; };
     };
 
     # These are shells for use when workin in this repository
