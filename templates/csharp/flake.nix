@@ -4,32 +4,46 @@
 {
   description = "A Nix-flake-based C# development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+  };
 
   outputs =
     { self, nixpkgs }:
     let
-      supportedSystems = [
+      allSupportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      forEachSupportedSystem =
-        f: nixpkgs.lib.genAttrs supportedSystems (system: f { pkgs = import nixpkgs { inherit system; }; });
+      forEachSupportedSystems = nixpkgs.lib.genAttrs allSupportedSystems;
     in
     {
-      devShells = forEachSupportedSystem (
-        { pkgs }:
+      devShells = forEachSupportedSystems (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.dotnetCorePackages.sdk_8_0 # Runtime and 
-              pkgs.omnisharp-roslyn # Language Server for C#
+              # Cloud tools
+              pkgs.azure-cli
+              pkgs.terraform
+
+              # C# and ASP .NET Core
+              pkgs.dotnetCorePackages.sdk_8_0
+              pkgs.omnisharp-roslyn
             ];
 
             # Environment Variables
+            # Expose the exact path to the Dotnet binaries
             DOTNET_ROOT = builtins.toString pkgs.dotnetCorePackages.sdk_8_0;
+            DOTNET_BIN = "${pkgs.dotnetCorePackages.sdk_8_0}/bin/dotnet";
           };
         }
       );
